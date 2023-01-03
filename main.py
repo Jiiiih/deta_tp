@@ -163,6 +163,8 @@ def visitors():
 #     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 #     return render_template('cookies.html')
 
+#for the commit to work
+
 
 if __name__ == '__main__':
     app.debug = True
