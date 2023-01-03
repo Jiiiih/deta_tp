@@ -1,0 +1,1 @@
+{"id":"6eb1ac39-a594-4916-bdf7-81fde228a18d","space":41643,"runtime":"python3.9","name":"second_micro","path":"5i6fy9","project":"a06wepel","account":"144798365827","region":"eu-central-1","deps":["flask","requests","pytrends","pandas","google-api-python-client","google-auth-httplib2","google-auth-oauthlib"],"envs":null,"public":true,"log_level":"debug","cron":""}
