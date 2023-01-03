@@ -36,7 +36,6 @@ def ga_auth(scopes):
         print(get_cred_dict())
         flow.redirect_uri = 'https://5i6fy9.deta.dev/cookies'
         auth_url, _ = flow.authorization_url(prompt='consent')
-        print(auth_url)
         print('Go to this URL: {}'.format(auth_url))
     except Exception as e:
         print('exception')
@@ -110,20 +109,23 @@ def oauth():
      # Set Scopes
      scopes = ['https://www.googleapis.com/auth/analytics.readonly']
      auth_url = ga_auth(scopes)
-     print("oauth")
-     print(auth_url)
      return redirect(auth_url)
 
 
 @app.route('/cookies/', methods=["GET"])
 def cookies():
-    code = escape(request.args.get('code', None))
-    print("code")
-    print(code)
-    # state = request.args.get('state', None)
-    # flow.fetch_token(code=code)
-    print("flow")
-    print(flow.fetch_token(code=code))
+    try :
+        code = request.args.get('code', None)
+        print("code")
+        print(code)
+        # state = request.args.get('state', None)
+        #flow.fetch_token(code)
+        print("flow")
+        print(flow.fetch_token(code=code))
+        print("printed")
+    except Exception as e:
+        print('exception')
+        print(e)
     return redirect(url_for('visitors'))
 
 
