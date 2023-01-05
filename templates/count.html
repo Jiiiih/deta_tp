@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<table>
+    <tr>
+      <th>Word</th>
+      <th>Count</th>
+    </tr>
+    {% for word, count in word_counts.items() %}
+    <tr>
+      <td>{{ word }}</td>
+      <td>{{ count }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  
