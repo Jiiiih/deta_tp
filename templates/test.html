@@ -1,0 +1,24 @@
+<!DOCTYPE html> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<canvas id="myChart" width="600" height="400"></canvas>
+<script type="text/javascript">
+    Chart.defaults.global.responsive = false;
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var label = [1,2,3,4,5,6,7,8,9,10];
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+            label,
+            datasets: [{
+                label: "Trend",
+                data: [1,2,3,4,5,6,7,8,9,10],
+                borderWidth: 5,
+                fill: false,
+                borderColor: '#fc8403'
+            }]
+        },
+    });
+</script>
+{{df_date}}{{df_trend}}

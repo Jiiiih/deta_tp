@@ -1,9 +1,10 @@
 <!DOCTYPE html> 
-<script src='static/Chart.min.js'></script>
-<canvas id="myChart" width="600" height="400"></canvas>
-<script java>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<canvas id="myChart"></canvas>
+<script type="text/javascript">
+      Chart.defaults.global.responsive = false;
       var ctx = document.getElementById('myChart').getContext('2d');
-      var label = '{{ df_date }}';
+      var label = '{{df_date}}';
       var chart = new Chart(ctx, {
           // The type of chart we want to create
           type: 'line',
@@ -12,7 +13,7 @@
               label,
               datasets: [{
                   label: "Trend",
-                  data: '{{ df_trend }',
+                  data: '{{df_trend}}',
                   borderWidth: 5,
                   fill: false,
                   borderColor: '#fc8403'

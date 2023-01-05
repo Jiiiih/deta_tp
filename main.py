@@ -168,15 +168,20 @@ def visitors():
 def plot():
     keyword = "bleach"
     df = get_data(keyword)
-    # fig = px.line(df,df['y'], df['ds'], title='Trend of ' + keyword)
-    # graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    #convert date to string
-    df_date = df['ds'].astype(str)
+    list = [0,1,2]
+    print(df)
     df_date = df['ds'].values.tolist()
     print(df_date)
     df_trend = df['y'].values.tolist()
+    # pritn the type of df_date
+    print(type(df_date))
+    print(type(list))
     print(df_trend)
-    return render_template('pytrend.html', df_date=df_date, df_trend=df_trend)
+    # return render_template('pytrend.html', df_date=df_date, df_trend=df_trend)
+    return render_template('pytrend.html', df_date=df_date, df_trend=df_trend, list=list)
+
+ 
+  
 
 
 
