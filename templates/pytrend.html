@@ -1,0 +1,26 @@
+<!DOCTYPE html> 
+<script src='static/Chart.min.js'></script>
+<canvas id="myChart" width="600" height="400"></canvas>
+<script java>
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var label = '{{ df_date }}';
+      var chart = new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'line',
+          // The data for our dataset
+          data: {
+              label,
+              datasets: [{
+                  label: "Trend",
+                  data: '{{ df_trend }',
+                  borderWidth: 5,
+                  fill: false,
+                  borderColor: '#fc8403'
+              }]
+          },
+      });
+</script>
+
+
+
+

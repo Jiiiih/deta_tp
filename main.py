@@ -1,4 +1,4 @@
-from flask import redirect,url_for, Flask, render_template, request
+from flask import redirect, url_for, Flask, render_template, request
 from markupsafe import escape
 import requests
 # for tp3
@@ -9,6 +9,7 @@ import json
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 
+
 app = Flask(__name__)
 app.config.from_pyfile('settings.py')
 
@@ -16,6 +17,8 @@ flow = None
 
 # defining functions
 # function to get data from google trends
+
+
 def get_data(keyword):
     # get trend of last 90 days
     keyword = [keyword]
@@ -28,9 +31,11 @@ def get_data(keyword):
     return df
 
 # defining ga auth
+
+
 def ga_auth(scopes):
     global flow
-    auth_url="/"
+    auth_url = "/"
     try:
         flow = InstalledAppFlow.from_client_config(get_cred_dict(), scopes)
         print(get_cred_dict())
@@ -46,7 +51,7 @@ def ga_auth(scopes):
 
 def get_cred_dict():
     credentials_dict = {
-        "web":{
+        "web": {
         "client_id": app.config.get("CLIENT_ID"),
         "project_id": app.config.get("PROJECT_ID"),
         "auth_uri": app.config.get("AUTH_URI"),
@@ -71,8 +76,8 @@ prefix_google = """
 
  """
 
-  
-@app.route('/', methods=["GET","POST"])
+
+@app.route('/', methods=["GET", "POST"])
 def home():
  if request.method == 'POST':
     if request.form.get('action1') == 'LOGS':
@@ -101,8 +106,10 @@ def show_logs():
 
 @app.route('/ganalytics', methods=["GET"])
 def ganalytics():
-        req = requests.get("https://analytics.google.com/analytics/web/#/report-home/a250996037w345084258p281218202")
+        req = requests.get(
+            "https://analytics.google.com/analytics/web/#/report-home/a250996037w345084258p281218202")
         return req.text
+
 
 @app.route('/cookies/oauth', methods=["GET"])
 def oauth():
@@ -114,12 +121,12 @@ def oauth():
 
 @app.route('/cookies/', methods=["GET"])
 def cookies():
-    try :
+    try:
         code = request.args.get('code', None)
         print("code")
         print(code)
         # state = request.args.get('state', None)
-        #flow.fetch_token(code)
+        # flow.fetch_token(code)
         print("flow")
         print(flow.fetch_token(code=code))
         print("printed")
@@ -149,21 +156,31 @@ def visitors():
         print('exception')
         print(e)
 
-    display=prefix_google+render_template('gaauth.html', google_cookies=google_cookies, number_users=str(number_users))
+    display = prefix_google + \
+        render_template('gaauth.html', google_cookies=google_cookies,
+                        number_users=str(number_users))
 
     return display
 
 
 # # TP3
-# @app.route('/plot', methods=["GET"])
-# def plot():
-#     keyword = "bleach"
-#     df = get_data(keyword)
-#     fig = px.line(df,df['y'], df['ds'], title='Trend of ' + keyword)
-#     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-#     return render_template('cookies.html')
+@app.route('/plot', methods=["GET"])
+def plot():
+    keyword = "bleach"
+    df = get_data(keyword)
+    # fig = px.line(df,df['y'], df['ds'], title='Trend of ' + keyword)
+    # graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    #convert date to string
+    df_date = df['ds'].astype(str)
+    df_date = df['ds'].values.tolist()
+    print(df_date)
+    df_trend = df['y'].values.tolist()
+    print(df_trend)
+    return render_template('pytrend.html', df_date=df_date, df_trend=df_trend)
 
-#for the commit to work
+
+
+
 
 
 if __name__ == '__main__':
